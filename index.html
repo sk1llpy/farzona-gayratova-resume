@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Резюме / Rezyume — Гайратова Фарзона</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root{
+      --bg1:#ffe9f2;          /* blush */
+      --bg2:#eae8ff;          /* lavender */
+      --ink:#28323c;          /* deep slate */
+      --muted:#666c75;
+      --accent:#e85b8b;       /* rose */
+      --accent-2:#8d7cf0;     /* soft purple */
+      --chip:#fff4f8;
+      --card:#ffffff;
+      --ring: rgba(232,91,139,.25);
+      --shadow:0 10px 40px rgba(40,50,60,.12);
+      --radius:18px;
+      --a4w: 794px;           /* A4 px @96dpi */
+      --a4h: 90%;          /* A4 px @96dpi */
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+                   Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+      color:var(--ink);
+      background: radial-gradient(1200px 600px at 10% -10%, var(--bg1), transparent),
+                  radial-gradient(1200px 600px at 110% 20%, var(--bg2), transparent),
+                  linear-gradient(135deg, #fff, #f9f9ff);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:16px;
+      padding:20px;
+    }
+
+    /* Chrome autofill / selection niceties */
+    ::selection{background:#ffd9e8}
+
+    .shell{
+      width:100%;
+      max-width: var(--a4w);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:14px;
+      padding-bottom: 40px;
+    }
+
+    /* Action bar */
+    .actions{
+      top:10px;
+      z-index:50;
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:center;
+    }
+    .btn{
+      appearance:none; border:0; cursor:pointer;
+      padding:11px 16px; border-radius:999px; font-weight:600;
+      background:var(--card); color:var(--ink);
+      box-shadow: var(--shadow);
+      transition:.25s transform, .25s box-shadow, .25s background;
+      outline: 2px solid transparent; outline-offset:2px;
+    }
+    .btn:hover{ transform: translateY(-2px); box-shadow:0 14px 50px rgba(40,50,60,.16) }
+    .btn:focus-visible{ outline-color: var(--ring) }
+    .btn.ghost{ background:#fff }
+    .btn.accent{ background: linear-gradient(90deg, var(--accent), var(--accent-2)); color:#fff }
+    .btn.tag{ background:var(--chip); color:#a23c60 }
+
+    /* Resume frame (A4) */
+    .resume-frame{
+      background:var(--card);
+      width:var(--a4w);
+      min-height:var(--a4h);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding:40px 44px;
+      position:relative;
+      overflow:visible;
+      isolation:isolate;
+      transition: transform .25s ease;
+    }
+
+    /* Decorative ribbons */
+    .ribbon{
+      position:absolute; inset:auto auto 0 0; width:58%;
+      height:160px; background: linear-gradient(90deg, #ffd5e6, #eadfff);
+      border-top-right-radius: 120px; z-index:-1; filter: blur(30px); opacity:.6;
+    }
+    .ribbon.r2{ left:auto; right:-20px; bottom:auto; top:-40px; width:55%; height:120px; border-radius:140px }
+
+    header{
+      display:grid; grid-template-columns: 88px 1fr; gap:18px; align-items:center;
+      margin-bottom:18px;
+    }
+    .avatar{
+      width:88px; height:88px; border-radius:50%; overflow:hidden; background:
+        radial-gradient(circle at 30% 30%, #ffd9e8, #e7e3ff);
+      display:grid; place-items:center; font-size:28px; color:#a23c60; font-weight:800;
+      border:2px solid #fff; box-shadow:0 6px 24px rgba(232,91,139,.25);
+    }
+
+    h1{
+      font-size:28px; margin:0 0 6px 0; letter-spacing:.2px;
+    }
+    .subtitle{
+      display:flex; gap:10px; flex-wrap:wrap; color:var(--muted); font-size:14px;
+    }
+    .chip{
+      background:var(--chip);
+      padding:6px 10px; border-radius:999px; border:1px solid #ffd5e6;
+    }
+
+    .info{
+      display:grid; grid-template-columns: 1fr 1fr; gap:10px 18px;
+      font-size:14px; color:#3b424b; margin:12px 0 6px;
+    }
+    .info div{ display:flex; gap:8px; align-items:flex-start }
+
+    section{ margin:16px 0 }
+    section h2{
+      font-size:16px; margin:0 0 10px 0; color:#8a3d60;
+      display:inline-flex; align-items:center; gap:8px; padding:6px 12px;
+      border-radius:999px; background:linear-gradient(90deg,#fff3f7,#f4f1ff);
+      border:1px solid #ffe3ee;
+    }
+
+    ul{ margin:0; padding-left:18px }
+    li{ margin:6px 0; line-height:1.45 }
+    .card{
+      border:1px solid #f6d6e2; background:#fff; border-left:4px solid var(--accent);
+      padding:10px 12px; border-radius:12px; margin:8px 0;
+    }
+
+    .grid-2{ display:grid; grid-template-columns:1fr 1fr; gap:14px }
+    .skills{ display:flex; flex-wrap:wrap; gap:8px }
+    .pill{
+      border:1px solid #ffe0ea; background: #fff; padding:6px 10px; border-radius:999px;
+      font-size:13px;
+    }
+
+    .footer{ margin-top:12px; text-align:center; font-size:12px; color:#8a8f96 }
+
+    /* Language blocks */
+    .lang{ display:none }
+    .lang.active{ display:block }
+
+    /* Responsive */
+    @media (max-width: 860px){
+      .resume-frame{ width:100%; padding:26px 20px }
+      header{ grid-template-columns: 64px 1fr }
+      .avatar{ width:64px; height:64px; font-size:22px }
+      h1{ font-size:22px }
+      .info{ grid-template-columns:1fr; }
+      .grid-2{ grid-template-columns:1fr }
+    }
+
+    /* Print styles for crisp single-page */
+    @media print{
+      body{ background:#fff; padding:0; }
+      .actions{ display:none !important }
+      .resume-frame{
+        width: 210mm; min-height: 297mm; padding:14mm 16mm;
+        box-shadow:none; border-radius:0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <!-- Actions -->
+    <div class="actions" role="toolbar" aria-label="Actions">
+      <button class="btn tag" onclick="switchLang('ru')" id="btn-ru">🇷🇺 Русский</button>
+      <button class="btn tag" onclick="switchLang('uz')" id="btn-uz">🇺🇿 O‘zbekcha</button>
+      <button class="btn accent" onclick="savePDF()" id="btn-save">📥 Saqlash PDF</button>
+    </div>
+
+    <!-- Resume (A4 frame) -->
+    <div id="resume" class="resume-frame">
+      <div class="ribbon"></div><div class="ribbon r2"></div>
+
+      <!-- RU -->
+      <article id="ru" class="lang active" lang="ru">
+        <header>
+          <div class="avatar" aria-hidden="true">GF</div>
+          <div>
+            <h1>Гайратова Фарзона Комил кизи</h1>
+            <div class="subtitle">
+              <span class="chip">Резюме</span>
+              <span class="chip">Клиентоориентированность</span>
+              <span class="chip">Дизайн&nbsp;&middot;&nbsp;Продажи</span>
+            </div>
+          </div>
+        </header>
+
+        <div class="info">
+          <div>📅 <b>Дата рождения:</b>&nbsp;08.07.2007 (18 лет)</div>
+          <div>📍 <b>Адрес:</b>&nbsp;Ташкент, Олмазор, ул. Берунийшох (м. Тинчлик)</div>
+          <div>📞 <b>Телефон:</b>&nbsp;+998 88-711-48-84</div>
+          <div>✉️ <b>Telegram:</b>&nbsp;@kamiloffam</div>
+          <div>🌍 <b>Национальность:</b>&nbsp;узбечка</div>
+        </div>
+
+        <section>
+          <h2>🎓 Образование</h2>
+          <div class="card">Республиканский колледж дизайна — специальность «дизайн», выпускница</div>
+          <div class="card">Cambridge Learning Centre — курсы английского языка (уровень B1)</div>
+          <div class="card">Среднее образование (школа)</div>
+        </section>
+
+        <section class="grid-2">
+          <div>
+            <h2>💼 Опыт работы</h2>
+            <ul>
+              <li><b>SAAF Couture</b> — магазин женской одежды, продавец (1 год)</li>
+              <li>Консультация и сопровождение клиентов, допродажи</li>
+              <li>Поддержание визуального мерчандайзинга, порядок в зале</li>
+              <li><b>Shine Skin</b> — call-center оператор (2 месяца)</li>
+              <li>Приём/обработка обращений, консультации по телефону</li>
+              <li>Работа в CRM (AMO CRM), фиксация результатов</li>
+            </ul>
+          </div>
+          <div>
+            <h2>🛠 Навыки</h2>
+            <div class="skills">
+              <span class="pill">Коммуникабельность</span>
+              <span class="pill">Работа в команде</span>
+              <span class="pill">Решение проблем</span>
+              <span class="pill">ПК-пользователь</span>
+              <span class="pill">AMO CRM</span>
+              <span class="pill">Визуальный вкус</span>
+            </div>
+
+            <h2 style="margin-top:12px">🌐 Языки</h2>
+            <div class="skills">
+              <span class="pill">Узбекский — родной</span>
+              <span class="pill">Русский — свободно</span>
+              <span class="pill">Английский — B1</span>
+            </div>
+
+            <h2 style="margin-top:12px">➕ Дополнительно</h2>
+            <ul>
+              <li>Интересы: IT, дизайн, мода</li>
+              <li>Активная, ответственная, нацелена на рост</li>
+            </ul>
+          </div>
+        </section>
+
+        <div class="footer">© 2025 Резюме — Гайратова Фарзона</div>
+      </article>
+
+      <!-- UZ -->
+      <article id="uz" class="lang" lang="uz">
+        <header>
+          <div class="avatar" aria-hidden="true">GF</div>
+          <div>
+            <h1>G‘ayratova Farzona Komil qizi</h1>
+            <div class="subtitle">
+              <span class="chip">Rezyume</span>
+              <span class="chip">Mijozga yo‘naltirilgan</span>
+              <span class="chip">Dizayn&nbsp;&middot;&nbsp;Savdo</span>
+            </div>
+          </div>
+        </header>
+
+        <div class="info">
+          <div>📅 <b>Tug‘ilgan sana:</b>&nbsp;08.07.2007 (18 yosh)</div>
+          <div>📍 <b>Manzil:</b>&nbsp;Toshkent, Olmazor, Beruniyshoh ko‘chasi (Tinchlik metrosi)</div>
+          <div>📞 <b>Telefon:</b>&nbsp;+998 88-711-48-84</div>
+          <div>✉️ <b>Telegram:</b>&nbsp;@kamiloffam</div>
+          <div>🌍 <b>Millati:</b>&nbsp;o‘zbek</div>
+        </div>
+
+        <section>
+          <h2>🎓 Ta’lim</h2>
+          <div class="card">Respublika dizayn kolleji — “dizayn” yo‘nalishi, bitiruvchi</div>
+          <div class="card">Cambridge Learning Centre — Ingliz tili kurslari (B1)</div>
+          <div class="card">O‘rta ma’lumot (maktab)</div>
+        </section>
+
+        <section class="grid-2">
+          <div>
+            <h2>💼 Ish tajribasi</h2>
+            <ul>
+              <li><b>SAAF Couture</b> — ayollar kiyim do‘koni, sotuvchi (1 yil)</li>
+              <li>Mijozlarni maslahatlash va kuzatish, qo‘shimcha savdo</li>
+              <li>Vitrina va zaldagi tartibni saqlash</li>
+              <li><b>Shine Skin</b> — call-center operatori (2 oy)</li>
+              <li>Murojaatlarni qabul qilish va qayta ishlash, telefon orqali maslahat</li>
+              <li>CRM (AMO CRM) bilan ishlash, natijalarni qayd etish</li>
+            </ul>
+          </div>
+          <div>
+            <h2>🛠 Ko‘nikmalar</h2>
+            <div class="skills">
+              <span class="pill">Muloqotchanlik</span>
+              <span class="pill">Jamoada ishlash</span>
+              <span class="pill">Muammo yechish</span>
+              <span class="pill">Kompyuterda ishlash</span>
+              <span class="pill">AMO CRM</span>
+              <span class="pill">Vizuallik didi</span>
+            </div>
+
+            <h2 style="margin-top:12px">🌐 Tillar</h2>
+            <div class="skills">
+              <span class="pill">O‘zbek — ona tili</span>
+              <span class="pill">Rus — bemalol</span>
+              <span class="pill">Ingliz — B1</span>
+            </div>
+
+            <h2 style="margin-top:12px">➕ Qo‘shimcha</h2>
+            <ul>
+              <li>Qiziqishlar: IT, dizayn, moda</li>
+              <li>Faol, mas’uliyatli, o‘sishga intiladi</li>
+            </ul>
+          </div>
+        </section>
+
+        <div class="footer">© 2025 Rezyume — G‘ayratova Farzona</div>
+      </article>
+    </div>
+  </div>
+
+  <!-- html2pdf.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script>
+    const A4_W = 794;   // px at 96dpi
+    const A4_H = 1123;  // px at 96dpi
+    const resumeEl = document.getElementById('resume');
+    let compact = false;
+
+    function switchLang(lang){
+      document.querySelectorAll('.lang').forEach(el=>el.classList.remove('active'));
+      document.getElementById(lang).classList.add('active');
+      // Update active button style
+      document.getElementById('btn-ru').classList.toggle('accent', lang==='ru');
+      document.getElementById('btn-uz').classList.toggle('accent', lang==='uz');
+    }
+
+    function activeLang(){
+      return document.querySelector('.lang.active')?.id || 'ru';
+    }
+
+    function filenameForLang(){
+      const lang = activeLang();
+      return lang === 'uz' ? 'rezyume-farzona.pdf' : 'resume-farzona.pdf';
+    }
+
+    async function savePDF(){
+        const language = activeLang();
+        const link = document.createElement('a');
+
+        link.href = `media/farzona-gayratova-${language}.pdf`;
+        link.download = `farzona-gayratova-${language}.pdf`;
+
+        link.click();
+    };
+
+    // Nice: make RU active tag styled on load
+    document.getElementById('btn-ru').classList.add('accent');
+
+    // Optional: shrink slightly on tiny phones so it fits the viewport more elegantly
+    const mq = matchMedia('(max-width:420px)');
+    function fitSmall(){
+      // Only affect on-screen preview
+      resumeEl.style.transition = 'transform .25s ease';
+      if(mq.matches){
+        resumeEl.style.transform = 'scale(0.92)';
+        resumeEl.style.transformOrigin = 'top center';
+      }else{
+        resumeEl.style.transform = 'none';
+      }
+    }
+    mq.addEventListener?.('change', fitSmall);
+    fitSmall();
+  </script>
+</body>
+</html>
